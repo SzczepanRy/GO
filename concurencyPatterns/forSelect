@@ -1,0 +1,25 @@
+package main
+
+import "fmt"
+
+func main() {
+
+	sl := []string{"a", "b", "c", "d", "e"}
+
+	ch1 := make(chan string, 5)
+	// ch2 := make(chan string)
+
+	// ch <- "thereaa"
+	for _, char := range sl {
+		select {
+		case ch1 <- char:
+		}
+
+	}
+	close(ch1)
+
+	for res := range ch1 {
+		fmt.Println(res)
+	}
+
+}
