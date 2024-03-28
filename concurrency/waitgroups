@@ -1,0 +1,43 @@
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+func main() {
+	//channels are a way for go routeness to comunicate with each other
+
+	// waits for the inputed go routenes
+	var wg sync.WaitGroup
+
+	//we can add and decrement the counter
+	wg.Add(1)
+
+	//run the function in the background and  contimue to the next line
+
+	go func() {
+		count("Sheep")
+		//decrements the wg by one
+		wg.Done()
+		// go count("fish")
+	}()
+	//if any go routenes have not finished it waits
+	wg.Wait()
+	// if a go routene finishes the program exits
+	// so the main go routene exits and we dont get anything logged
+
+	// //not usful
+	// //stops the main function and waits for user input
+	// fmt.Scanln()
+
+}
+
+func count(thing string, c chan string) {
+	for i := 0; i <= 5; i++ {
+		c <- thing
+		fmt.Println(i, thing)
+		time.Sleep(time.Second / 2)
+	}
+}
