@@ -14,7 +14,6 @@ func main() {
 		select {
 		case ch1 <- char:
 		}
-
 	}
 	close(ch1)
 
